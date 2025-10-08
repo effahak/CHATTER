@@ -48,6 +48,8 @@ export const signup = async (req, res) => {
         email: newUSer.email,
         profilePic: newUSer.profilePic,
       });
+
+      //send welcome mail
       try {
         await sendWelcomeEmail(
           savedUser.email,
@@ -64,4 +66,43 @@ export const signup = async (req, res) => {
     console.log("Error in signup controller", error);
     res.status(500).json({ message: "Internal server error" });
   }
+};
+
+export const login = async (req, res) => {
+  const { email, password } = req.body;
+  if (!email || !password) {
+    return res.status(400).json({ message: "Email and password are required" });
+  }
+
+  try {
+    const user = await User.findOne({ email });
+    //check for user
+    if (!user) {
+      return res.status(400).json({ message: "Invalid Credentials" }); //never tell the user which one is incorrect
+    }
+
+    const isPasswordCorrect = await bcrypt.compare(password, user.password);
+    //verify password
+    if (!isPasswordCorrect) {
+      return res.status(400).json({ message: "Invalid Credentials" });
+    }
+
+    //user found
+    generateToken(user._id, res);
+    res.status(201).json({
+      _id: user._id,
+      fullName: user.fullName,
+      email: user.email,
+      profilePic: user.profilePic,
+    });
+  } catch (error) {
+    console.log("Error in login controller: ", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
+export const logout = (_, res) => {
+  // res.cookie("jwt", "", { maxAge: 0 }); //another way
+  res.clearCookie("jwt");
+  res.status(200).json({ message: "User logged out successfully" });
 };
