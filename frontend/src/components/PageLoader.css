@@ -1,0 +1,45 @@
+.loader-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #ff4c68;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.dog-image {
+  width: 150px;
+  height: auto;
+  animation: bounce 1.2s infinite ease-in-out;
+}
+
+.loading-text {
+  margin-top: 1rem;
+  font-family: "Poppins", sans-serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #6b4226;
+  letter-spacing: 1px;
+}
+
+/* Bounce animation for the dog */
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+/* Simple fade-in animation for smooth entry */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
