@@ -5,7 +5,6 @@ import {
   MessageCircleIcon,
   LockIcon,
   MailIcon,
-  UserIcon,
   LoaderIcon,
 } from "lucide-react";
 import { Link } from "react-router";
