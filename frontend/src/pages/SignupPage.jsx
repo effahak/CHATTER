@@ -127,7 +127,7 @@ function SignupPage() {
               <div>
                 <img
                   src="/assets/signup.png"
-                  alt="People using mobile devices"
+                  alt="Two Dogs having a time "
                   className="w-full h-auto object-contain"
                 />
                 <div className="mt-6 text-center">

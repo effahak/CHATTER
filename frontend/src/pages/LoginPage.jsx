@@ -108,7 +108,7 @@ function LoginPage() {
                   alt="People using mobile devices"
                   className="w-full h-auto object-contain"
                 />
-                <div className="mt-6 text-center">
+                <div className=" text-center">
                   <h3 className="text-xl font-medium text-cyan-400"> WOOF! </h3>
 
                   <div className="mt-4 flex justify-center gap-4">
