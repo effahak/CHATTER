@@ -34,7 +34,7 @@ function LoginPage() {
                 <div className="text-center mb-8">
                   <MessageCircleIcon className="w-12 h-12 mx-auto text-slate-400 mb-4" />
                   <h2 className="text-2xl font-bold text-slate-200 mb-2">
-                    Welcome Back
+                    Welcome "Bark"!
                   </h2>
                   <p className="text-slate-400">Log into your account</p>
                 </div>
