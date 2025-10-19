@@ -4,9 +4,9 @@ import toast from "react-hot-toast";
 
 export const useChatStore = create((set, get) => ({
   allContacts: [],
-  allChats: [],
+  chats: [],
   messages: [],
-  activeTab: "chat",
+  activeTab: "chats",
   selectedUser: null,
   isUsersLoading: false,
   isMessagesLoading: false,
@@ -42,7 +42,7 @@ export const useChatStore = create((set, get) => ({
 
     try {
       const res = await axiosInstance.get("/messages/chats");
-      set({ allContacts: res.data });
+      set({ chats: res.data });
     } catch (error) {
       console.log("Error getting all contacts", error);
       toast.error(error.response.data.message);
