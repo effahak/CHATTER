@@ -77,4 +77,18 @@ export const useAuthStore = create((set) => ({
       toast.error(message);
     }
   },
+
+  updateProfile: async (data) => {
+    try {
+      const res = await axiosInstance.put("/auth/update-profile", data);
+      set({ authUser: res.data });
+      toast.success("Profile Picture Updated Successfully!");
+    } catch (error) {
+      console.log("Error in profile update: ", error);
+      const message =
+        error?.response?.data?.message ||
+        "Profile Update failed. Please try again.";
+      toast.error(message);
+    }
+  },
 }));
