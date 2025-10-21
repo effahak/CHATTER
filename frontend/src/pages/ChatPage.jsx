@@ -10,7 +10,6 @@ import ContactList from "../components/ContactList";
 import NoConversationPlaceholder from "../components/NoConversationPlaceholder";
 
 function ChatPage() {
-  const { logout } = useAuthStore();
   const { activeTab, selectedUser } = useChatStore();
 
   return (
