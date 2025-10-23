@@ -76,7 +76,7 @@ export const sendMessage = async (req, res) => {
     await newMessage.save();
     try {
       await sendMessageEmail(receiver.email, sender.fullName);
-    } catch {
+    } catch (error){
       console.log(error);
     }
 
