@@ -1,6 +1,7 @@
 import cloudinary from "../lib/cloudinary.js";
 import Message from "../models/Message.js";
 import User from "../models/User.js";
+import { sendMessageEmail } from "../emails/sendChatEmail.js";
 
 export const getAllContacts = async (req, res) => {
   try {
@@ -67,7 +68,11 @@ export const sendMessage = async (req, res) => {
     });
     //use socket.io to send message in real time
 
+    const receiver = await User.findById(receiverId).select("-password");
+    const sender = await User.findById(senderId).select("-password");
+
     await newMessage.save();
+    await sendMessageEmail(receiver.email, sender.fullName);
     res.status(200).json(newMessage);
   } catch (error) {
     res.status(500).json({ message: "Internal Server Error" });
