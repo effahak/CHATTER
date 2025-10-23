@@ -68,11 +68,18 @@ export const sendMessage = async (req, res) => {
     });
     //use socket.io to send message in real time
 
-    const receiver = await User.findById(receiverId).select("-password");
-    const sender = await User.findById(senderId).select("-password");
+    const [receiver, sender] = await Promise.all([
+      User.findById(receiverId).select("-password"),
+      User.findById(senderId).select("-password"),
+    ]);
 
     await newMessage.save();
-    await sendMessageEmail(receiver.email, sender.fullName);
+    try {
+      await sendMessageEmail(receiver.email, sender.fullName);
+    } catch {
+      console.log(error);
+    }
+
     res.status(200).json(newMessage);
   } catch (error) {
     res.status(500).json({ message: "Internal Server Error" });
