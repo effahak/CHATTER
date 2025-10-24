@@ -76,8 +76,8 @@ export const sendMessage = async (req, res) => {
     await newMessage.save();
     try {
       await sendMessageEmail(receiver.email, sender.fullName);
-    } catch {
-      console.log(error);
+    } catch (error) {
+      console.log("ERROR NOTIFYING WITH EMAIL:", error);
     }
 
     res.status(200).json(newMessage);
