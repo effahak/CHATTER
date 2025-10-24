@@ -1,4 +1,5 @@
 import cloudinary from "../lib/cloudinary.js";
+import { getReceiverSocketId, io } from "../lib/socket.js";
 import Message from "../models/Message.js";
 import User from "../models/User.js";
 
@@ -66,6 +67,16 @@ export const sendMessage = async (req, res) => {
       image: imageURL,
     });
     //use socket.io to send message in real time
+
+    const receiverSocketId = getReceiverSocketId(receiverId);
+    if (receiverSocketId) {
+      io.to(receiverSocketId).emit("newMessage", newMessage);
+    }
+
+    const [receiver, sender] = await Promise.all([
+      User.findById(receiverId).select("-password"),
+      User.findById(senderId).select("-password"),
+    ]);
 
     await newMessage.save();
     res.status(200).json(newMessage);
