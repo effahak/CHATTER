@@ -2,7 +2,6 @@ import cloudinary from "../lib/cloudinary.js";
 import { getReceiverSocketId, io } from "../lib/socket.js";
 import Message from "../models/Message.js";
 import User from "../models/User.js";
-import { sendMessageEmail } from "../emails/sendChatEmail.js";
 
 export const getAllContacts = async (req, res) => {
   try {
@@ -69,14 +68,11 @@ export const sendMessage = async (req, res) => {
     });
     //use socket.io to send message in real time
 
-<<<<<<< HEAD
     const receiverSocketId = getReceiverSocketId(receiverId);
     if (receiverSocketId) {
       io.to(receiverSocketId).emit("newMessage", newMessage);
     }
 
-=======
->>>>>>> origin/socketio-integration
     await newMessage.save();
 
     res.status(200).json(newMessage);
