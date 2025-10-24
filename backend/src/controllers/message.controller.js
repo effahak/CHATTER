@@ -1,7 +1,6 @@
 import cloudinary from "../lib/cloudinary.js";
 import Message from "../models/Message.js";
 import User from "../models/User.js";
-import { sendMessageEmail } from "../emails/sendChatEmail.js";
 
 export const getAllContacts = async (req, res) => {
   try {
@@ -74,11 +73,6 @@ export const sendMessage = async (req, res) => {
     ]);
 
     await newMessage.save();
-    try {
-      await sendMessageEmail(receiver.email, sender.fullName);
-    } catch (error){
-      console.log(error);
-    }
 
     res.status(200).json(newMessage);
   } catch (error) {
