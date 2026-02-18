@@ -1,4 +1,3 @@
-import { error } from "console";
 import User from "../models/User.js";
 import { generateToken } from "../lib/utils.js";
 import bcrypt from "bcryptjs";
